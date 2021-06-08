@@ -15,32 +15,47 @@ namespace ShootingDice
             higherPlayer.Name = "Sue";
 
 
-            higherPlayer.Play(smackTalker);
+            // higherPlayer.Play(smackTalker);
 
 
-            Console.WriteLine("-------------------");
+            // Console.WriteLine("-------------------");
 
             HumanPlayer human = new HumanPlayer();
             human.Name = "Wilma";
 
-            human.Play(higherPlayer);
+            // human.Play(higherPlayer);
 
-            Console.WriteLine("-------------------");
+            // Console.WriteLine("-------------------");
 
             Player large = new LargeDicePlayer();
             large.Name = "Bigun Rollsalot";
 
-            smackTalker.Play(large);
+            // smackTalker.Play(large);
 
-            Console.WriteLine("-------------------");
+            // Console.WriteLine("-------------------");
 
             CreativeSmackTalkingPlayer creativePlayer = new CreativeSmackTalkingPlayer();
             creativePlayer.Name = "Frank";
+            SoreLoserPlayer loser = new SoreLoserPlayer();
+            loser.Name = "Donny";
 
-            creativePlayer.Play(human);
+            // creativePlayer.Play(loser);
+
+            Console.WriteLine("-------------------");
+
+            UpperHalfPlayer topPlayer = new UpperHalfPlayer();
+            topPlayer.Name = "Gussy";
+
+            // topPlayer.Play(loser);
+
+            SoreLoserUpperHalfPlayer topLoser = new SoreLoserUpperHalfPlayer();
+            topLoser.Name = "Karen";
+
+
 
             List<Player> players = new List<Player>() {
-                smackTalker, higherPlayer, human, large
+                smackTalker, higherPlayer, human, large, creativePlayer, loser,
+                topPlayer, topLoser
             };
 
             PlayMany(players);
@@ -72,7 +87,25 @@ namespace ShootingDice
                 // Make adjacent players play noe another
                 Player player1 = shuffledPlayers[i];
                 Player player2 = shuffledPlayers[i + 1];
-                player1.Play(player2);
+                try
+                {
+                    player1.Play(player2);
+                }
+                catch (Exception ex)
+                {
+
+                    if (ex.Message == "Ugh. I never get to win.")
+                    {
+                        Console.WriteLine("Get over it");
+                        continue;
+                    }
+
+                    if (ex.Message == "That is impossible.")
+                    {
+                        Console.WriteLine("All done.");
+
+                    }
+                }
             }
         }
     }
